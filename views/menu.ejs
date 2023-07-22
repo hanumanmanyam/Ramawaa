@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/4a3f8e2be3.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script>
+        //** Add this Script to the Custom Head section in the Additional Footer HTML **//
+        $(document).ready(function() {
+        
+            function close_accordion_section() {
+                $('.accordion .accordion-section-title').removeClass('active');
+                $('.accordion .accordion-section-content').slideUp(300).removeClass('open');
+            }
+            $('.accordion-section-title').click(function(e) {
+                // Grab current anchor value
+                var currentAttrValue = $(this).attr('href');
+        
+                if($(e.target).is('.active')) {
+                    close_accordion_section();
+                } 
+                else {
+                    close_accordion_section();
+                    // Add active class to section title
+                    $(this).addClass('active');
+                    // Open up the hidden content panel
+                    $('.accordion ' + currentAttrValue).slideDown(300).addClass('open'); 
+                }
+                e.preventDefault();
+            });
+        });
+        </script>
+    <style>
+        body{
+            background-color: #F5EFE7;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .buttons button{
+            margin: 1.5%;
+        }
+        .bill{
+            width: 60%;
+            border-radius: 1rem;
+            background-color: #D8C4B6;
+        }
+        .hello{
+            background-color: aqua;
+        }
+        .menu{
+            width: 70%;
+        }
+        .accordion, .accordion * {
+          -webkit-box-sizing:border-box; 
+          -moz-box-sizing:border-box; 
+          box-sizing:border-box;
+        }
+        .accordion {
+          overflow: hidden;
+        }
+        .accordion-section-title, .accordion-section-title:focus {
+          width: 100%;
+          padding: 15px;
+          display: inline-block;
+          border: 1px solid #213555;
+          background: #213555;
+          transition: all linear 0.15s;
+          color: white;
+          margin-bottom: 5px;
+        }
+        .accordion-section-title:before {
+          font-family: FontAwesome;
+          content: '\f055';
+          margin-right: 10px;
+        }
+        .accordion-section-title.active, .accordion-section-title:hover {
+          background: #4F709C;
+          color: #FFF;
+          text-decoration: none;
+        }
+        .accordion-section-title.active:before {
+          font-family: FontAwesome;
+          content: '\f056';
+          margin-right: 10px;
+        }
+        .accordion-section:last-child .accordion-section-title {
+          border-bottom: none;
+        }
+        .accordion-section-content {
+          padding: 15px;
+          display: none;
+        }
+        th,td {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-right: 45px;
+            padding-left: 45px;
+        }
+        </style>
+</head>
+<body>
+    
+    <% var final_price= 0; %>
+    
+    <% for (let i of arr2 ) { %>
+        <% if (i.table === table) { %>
+        <% for (let j of menu1 ) { %>
+            <% if (i.name === j.name) { %>
+                <% final_price +=(i.count*j.price)%>
+            <% } %>
+        <% } %>
+        <% } %>
+    <% } %>
+    <center>
+        <h1>Menu table of <%=table%></h1>
+        <div class="bill">
+            <div class="accordion">
+                <div class="accordion-section">
+                    <a class="accordion-section-title" href="#accordion-4" style="background-color:#4F709C; text-decoration: none; font-size: large; font-weight: bolder; color: red;">Pending Order:Rs <%=final_price%></a>
+                    <div id="accordion-4" class="accordion-section-content">
+                        <table style="font-family: 'Courier New', monospace;">
+                            <tr>
+                                <th>Item</th>
+                                <th>Count</th>
+                                <th>Price</th>
+                            </tr>
+                        <% for (let i of arr2 ) { %>
+                            <% if (i.table === table) { %>
+                            <% for (let j of menu1 ) { %>
+                                <% if (i.name === j.name) { %>
+                                       <tr>
+                                    
+                                        <td><%=i.name%></td>
+                                        <td><%=i.count%></td>
+                                        <td>Rs <%=(i.count*j.price)%></td>
+    
+                                        </tr>
+                                    
+                                <% } %>
+                            <% } %>
+                            <% } %>
+                        <% } %>
+                        <h2 style="font-family: 'Times New Roman', serif;">Raa Mawaa Restro</h2>
+                         <h6>Type: <%=type%></h6>
+                    </table>
+                    <h2 style="font-family: 'Courier New', monospace;">Total :Rs <%=final_price%></h2>
+                    </div>
+                </div>
+            </div>
+
+    
+    <div class="menu">
+        <div class="accordion">
+            <div class="accordion-section">
+                <a class="accordion-section-title hello" href="#accordion-1" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Biryani</a>
+                <div id="accordion-1" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Biryani" method="POST">
+                        <label for="name">Choose a Biryani:</label> <br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Biryani") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                        
+                    </select>
+                    <br>
+                    <label for="count">count</label><br>
+                    <input type="number" name="count"><br> <br>
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-2" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Starters</a>
+                <div id="accordion-2" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Starters" method="POST">
+                        <label for="name">Choose a Starter:</label> <br>
+                        <select class="form-select" aria-label="Default select example" name="name"  id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Starters") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="count">count</label><br>
+                    <input type="number" name="count"><br><br>
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-3" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Mandi</a>
+                <div id="accordion-3" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a  Mandi:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Mandi") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-5" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Gravies(non-veg)</a>
+                <div id="accordion-5" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a item:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Gravies(non-veg)") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-6" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Gravies(veg)</a>
+                <div id="accordion-6" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a item:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Gravies(veg)") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-7" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Roti</a>
+                <div id="accordion-7" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a Roti:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Roti") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-8" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Rice</a>
+                <div id="accordion-8" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a Rice item:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Rice") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-9" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Mutton</a>
+                <div id="accordion-9" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a Mutton item:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Mutton") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-10" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Egg</a>
+                <div id="accordion-10" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a Egg item:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Egg") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-11" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Sweet</a>
+                <div id="accordion-11" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a Sweet:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Sweet") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-12" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Combo</a>
+                <div id="accordion-12" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a Combo:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Combo") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-13" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Extras</a>
+                <div id="accordion-13" class="accordion-section-content">
+                    <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
+                        <label for="name">Choose a item:</label><br>
+                        <select class="form-select" aria-label="Default select example" name="name" id="cars">
+                        <% for (let i of menu1 ) { %>
+                            <% if (i.cat === "Extra") { %>
+                                <option>"<%=i.name%>"</option>
+                              <% } %>
+                        <% } %>
+                    </select>
+                    <br>
+                    <label for="floatingInput">count :</label>
+                    <input type="number" class="form-control" id="floatingInput" name="count" style="width: 30%;"><br>
+                    
+                    <button class="btn btn-primary" type="submit">ADD</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+    <br>
+</center>
+<center>
+<div class="buttons">
+    <button type="button" class="btn btn-danger"><a href="/clear/?table=<%=table%>" style="text-decoration: none; color: #FFF;">Order Cancel</a></button>
+    <button type="button" class="btn btn-primary"><a href="/back" style="text-decoration: none; color: #FFF;">Home</a></button>
+    <button type="button" class="btn btn-success"><a href="/his/?table=<%=table%>" style="text-decoration: none; color: #FFF;">Bill</a></button>
+</div>
+
+</center>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>

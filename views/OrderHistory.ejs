@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/4a3f8e2be3.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script>
+        //** Add this Script to the Custom Head section in the Additional Footer HTML **//
+        $(document).ready(function() {
+        
+            function close_accordion_section() {
+                $('.accordion .accordion-section-title').removeClass('active');
+                $('.accordion .accordion-section-content').slideUp(300).removeClass('open');
+            }
+            $('.accordion-section-title').click(function(e) {
+                // Grab current anchor value
+                var currentAttrValue = $(this).attr('href');
+        
+                if($(e.target).is('.active')) {
+                    close_accordion_section();
+                } 
+                else {
+                    close_accordion_section();
+                    // Add active class to section title
+                    $(this).addClass('active');
+                    // Open up the hidden content panel
+                    $('.accordion ' + currentAttrValue).slideDown(300).addClass('open'); 
+                }
+                e.preventDefault();
+            });
+        });
+        </script>
+    <style>
+        body{
+            background-color: #F5EFE7;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .buttons button{
+            margin: 1.5%;
+        }
+        .bill{
+            width: 60%;
+            border-radius: 1rem;
+            background-color: #D8C4B6;
+        }
+        .hello{
+            background-color: aqua;
+        }
+        .menu{
+            width: 70%;
+        }
+        .accordion, .accordion * {
+          -webkit-box-sizing:border-box; 
+          -moz-box-sizing:border-box; 
+          box-sizing:border-box;
+        }
+        .accordion {
+          overflow: hidden;
+        }
+        .accordion-section-title, .accordion-section-title:focus {
+          width: 100%;
+          padding: 15px;
+          display: inline-block;
+          border: 1px solid #213555;
+          background: #213555;
+          transition: all linear 0.15s;
+          color: white;
+          margin-bottom: 5px;
+        }
+        .accordion-section-title:before {
+          font-family: FontAwesome;
+          content: '\f055';
+          margin-right: 10px;
+        }
+        .accordion-section-title.active, .accordion-section-title:hover {
+          background: #4F709C;
+          color: #FFF;
+          text-decoration: none;
+        }
+        .accordion-section-title.active:before {
+          font-family: FontAwesome;
+          content: '\f056';
+          margin-right: 10px;
+        }
+        .accordion-section:last-child .accordion-section-title {
+          border-bottom: none;
+        }
+        .accordion-section-content {
+          padding: 15px;
+          display: none;
+        }
+        th,td {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-right: 45px;
+            padding-left: 45px;
+        }
+        </style>
+</head>
+
+<body>
+    <h1>Count: <%=count%></h1>
+    <% var index= 1; %>
+    <% var type; %>
+    <% var final_price= 0; %>
+    <center><h1> Table <%=table%> History</h1></center>
+    
+        <% for (let a of arr.reverse()) { %>
+            <% var final_price= 0; %>
+            <% for (let i of a.order ) { %>
+                <% final_price +=(i.total)%>   
+            <% } %>
+
+            <center>
+    <div class="bill">
+        <div class="accordion">
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-<%=index%>" style="background-color:#4F709C; text-decoration: none; font-size: large; font-weight: bolder; color: #7DCE13;">Order Completed:Rs <%=final_price %></a>
+                <div id="accordion-<%=index%>" class="accordion-section-content">
+                    <table style="font-family: 'Courier New', monospace;">
+                        <tr>
+                            <th>Item</th>
+                            <th>Count</th>
+                            <th>Price</th>
+                        </tr>
+                        <% var final_price= 0; %>
+                    <% for (let i of a.order ) { %>
+                        
+                            
+                        <tr>
+                            <td><%=i.name%></td>
+                            <td><%=i.count%></td>
+                            <td>Rs <%=(i.total)%></td>
+                            <% final_price +=(i.total)%>
+
+                        </tr>
+                        <% var type=i.opt %>
+                                
+                            
+                        
+                    <% } %>
+                    <h2 style="font-family: 'Times New Roman', serif;">Raa Mawaa Restro</h2>
+                     <h6>Type: <%=type%></h6>
+                </table>
+                <h2 style="font-family: 'Courier New', monospace;">Total :Rs <%=final_price %></h2>
+                </div>
+            </div>
+        </div>
+
+    </center>
+    <%index++%>
+    <% } %>
+</body>
+</html>
