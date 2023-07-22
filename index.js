@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require('dotenv').config()
 const app = express();
 const path = require("path");
 const url =
@@ -12,12 +13,18 @@ app.use(express.static("assets"));
 var arr = [];
 var today=0;
 var tab=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
-try {
-  mongoose.connect(url);
-  console.log("DB IS CONNECTED");
-} catch (error) {
-  console.log(error);
-}
+const url1 = process.env.MONGODB_URI
+mongoose.connect(url1, { useNewUrlParser: true, useUnifiedTopology: true }).then(function(){
+  console.log("MONGODB");
+
+});
+
+// try {
+//   mongoose.connect(process.env.MONGODB_URI);
+//   console.log("DB IS CONNECTED");
+// } catch (error) {
+//   console.log(error);
+// }
 const User = require("./models/pass.js");
 const Menu1 = require("./models/menu.js");
 const History = require("./models/orders.js");
