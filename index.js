@@ -1,6 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require('dotenv').config()
+const url1 = process.env.MONGODB_URI
+mongoose.connect(url1, { useNewUrlParser: true, useUnifiedTopology: true }).then(function(){
+  console.log("MONGODB");
+
+});
 const app = express();
 const path = require("path");
 const url =
@@ -13,11 +18,8 @@ app.use(express.static("assets"));
 var arr = [];
 var today=0;
 var tab=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
-const url1 = process.env.MONGODB_URI
-mongoose.connect(url1, { useNewUrlParser: true, useUnifiedTopology: true }).then(function(){
-  console.log("MONGODB");
 
-});
+
 
 // try {
 //   mongoose.connect(process.env.MONGODB_URI);
