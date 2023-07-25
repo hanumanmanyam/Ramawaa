@@ -110,6 +110,7 @@
                 width: 50%;
             }
             th,td {
+            font-size: small;
             padding-top: 2px;
             padding-bottom: 2px;
             padding-right: 6px;
@@ -153,6 +154,7 @@
                 <div class="accordion-section">
                     <a class="accordion-section-title" href="#accordion-4" style="background-color:#4F709C; text-decoration: none; font-size: large; font-weight: bolder; color: red;">Pending Order:Rs <%=final_price%></a>
                     <div id="accordion-4" class="accordion-section-content">
+                        
                         <table style="font-family: 'Courier New', monospace;" class="tab">
                             <tr>
                                 <th>Item</th>
@@ -164,10 +166,14 @@
                             <% for (let j of menu1 ) { %>
                                 <% if (arr2[i].name === j.name) { %>
                                        <tr>
-                                        <td ><%=arr2[i].name%></td>
+                                        <td style="text-rendering: optimizeLegibility;"><%=arr2[i].name%></td>
                                         <td><%=arr2[i].count%></td>
-                                        <td >Rs <%=(arr2[i].count*j.price)%></td>
-                                        <td ><a href="/del/?table=<%=table%>&index=<%=i%>"><button class="btn btn-danger" style="width: 5px; height: 5px;"></button></a></td>
+                                        <td >Rs <%=(arr2[i].count*j.price)%> </td>
+                                        <td>
+                                        <a href="/del/?table=<%=table%>&index=<%=i%>"><button class="btn btn-danger" style="width: 5px; height: 5px;"></button></a>
+                                    </td>
+                                        
+                                        
 
 
     
@@ -443,7 +449,7 @@
                 </div>
             </div>
             <div class="accordion-section">
-                <a class="accordion-section-title" href="#accordion-13" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Extras</a>
+                <a class="accordion-section-title" href="#accordion-13" style="text-decoration: none; font-size: large; font-weight: bold; color: #D8C4B6;">Extra</a>
                 <div id="accordion-13" class="accordion-section-content">
                     <form action="/cart/?table=<%=table%>&catogery=Roti" method="POST">
                         <label for="name">Choose a item:</label><br>
