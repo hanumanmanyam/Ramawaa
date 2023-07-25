@@ -106,12 +106,22 @@
             .bill{
                 width: 90%;
             }
+            .tab{
+                width: 50%;
+            }
+            th,td {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            padding-right: 6px;
+            padding-left: 6px;
+        }
         }
         </style>
 </head>
 <body>
     
     <% var final_price= 0; %>
+    <% var index= 0; %>
     
     <% for (let i of arr2 ) { %>
         <% if (i.table === table) { %>
@@ -124,6 +134,13 @@
     <% } %>
     <center>
         <h1>Menu table of <%=table%></h1>
+        <div class="buttons">
+            <button type="button" class="btn btn-danger"><a href="/clear/?table=<%=table%>" style="text-decoration: none; color: #FFF;">Order Cancel</a></button>
+            <button type="button" class="btn btn-primary"><a href="/back" style="text-decoration: none; color: #FFF;">Home</a></button>
+            <% if ( final_price>0) { %>
+            <button type="button" class="btn btn-success"><a href="/his/?table=<%=table%>" style="text-decoration: none; color: #FFF;">Bill</a></button>
+            <%}%>
+        </div>
 
 
         <div class="menu">
@@ -136,26 +153,30 @@
                 <div class="accordion-section">
                     <a class="accordion-section-title" href="#accordion-4" style="background-color:#4F709C; text-decoration: none; font-size: large; font-weight: bolder; color: red;">Pending Order:Rs <%=final_price%></a>
                     <div id="accordion-4" class="accordion-section-content">
-                        <table style="font-family: 'Courier New', monospace;">
+                        <table style="font-family: 'Courier New', monospace;" class="tab">
                             <tr>
                                 <th>Item</th>
                                 <th>Count</th>
-                                <th>Price</th>
+                                <th style="padding-right:1px ;">Price</th>
                             </tr>
-                        <% for (let i of arr2 ) { %>
-                            <% if (i.table === table) { %>
+                        <% for (let i=0;i<arr2.length ; i++ ) { %>
+                            <% if (arr2[i].table === table) { %>
                             <% for (let j of menu1 ) { %>
-                                <% if (i.name === j.name) { %>
+                                <% if (arr2[i].name === j.name) { %>
                                        <tr>
-                                    
-                                        <td><%=i.name%></td>
-                                        <td><%=i.count%></td>
-                                        <td>Rs <%=(i.count*j.price)%></td>
+                                        <td ><%=arr2[i].name%></td>
+                                        <td><%=arr2[i].count%></td>
+                                        <td >Rs <%=(arr2[i].count*j.price)%></td>
+                                        <td ><a href="/del/?table=<%=table%>&index=<%=i%>"><button class="btn btn-danger" style="width: 5px; height: 5px;"></button></a></td>
+
+
     
                                         </tr>
+
                                     
                                 <% } %>
                             <% } %>
+                            <% index++ %>
                             <% } %>
                         <% } %>
                         <h2 style="font-family: 'Times New Roman', serif;">Raa Mawaa Restro</h2>
@@ -449,11 +470,7 @@
     <br>
 </center>
 <center>
-<div class="buttons">
-    <button type="button" class="btn btn-danger"><a href="/clear/?table=<%=table%>" style="text-decoration: none; color: #FFF;">Order Cancel</a></button>
-    <button type="button" class="btn btn-primary"><a href="/back" style="text-decoration: none; color: #FFF;">Home</a></button>
-    <button type="button" class="btn btn-success"><a href="/his/?table=<%=table%>" style="text-decoration: none; color: #FFF;">Bill</a></button>
-</div>
+
 
 </center>
 </div>

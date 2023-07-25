@@ -6,6 +6,7 @@ mongoose.connect(url1, { useNewUrlParser: true, useUnifiedTopology: true }).then
   console.log("MONGODB");
 
 });
+const d = new Date();
 const app = express();
 const path = require("path");
 const url =
@@ -45,7 +46,10 @@ app.get("/back", (req, res) => {
             to:today,
             arr:ord,
             menu1:menu,
-            table:"Total"
+            table:"Total",
+            year:d.getFullYear(),
+            month:d.getMonth(),
+            day:d.getDate()
             
           });
         } else {
@@ -101,7 +105,10 @@ app.post("/validate", function (req, res) {
                 to:today,
                 arr:ord,
                 menu1:menu,
-                table:"Total"
+                table:"Total",
+                year:d.getFullYear(),
+                month:d.getMonth(),
+                day:d.getDate()
                 
               });
             } else {
@@ -146,6 +153,15 @@ app.get("/table", function (req, res) {
     }
   });
 });
+app.get('/del',function(req,res){
+  let table1 = req.query.table;
+  let ind=req.query.index;
+  console.log(ind);
+  if(arr[ind].count>1) arr[ind].count--;
+  else arr.splice(ind,1);
+  return res.redirect("back");
+
+})
 app.post("/cart", function (req, res) {
   let table1 = req.query.table;
   var str = req.body.name;
