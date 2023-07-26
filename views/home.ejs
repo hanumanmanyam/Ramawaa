@@ -213,7 +213,8 @@ textarea{
     
   </head>
   <body>
-    
+
+    <% if (email1==="ramawaa01@gmail.com") { %>
     <nav class="navbar navbar-expand-lg" >
         
         <div class="container-fluid">
@@ -259,8 +260,6 @@ textarea{
 
                 <%count++%>
                 <%}%>
-            
-
         <% } %>
         <div class="box1">
              <h5 id="text"><span id="tim" >Today Orders : <%=count%></span> &nbsp; &nbsp; <span id="tim" style="color: #7DCE13;">Total Orders : <%=arr.length%></span></h5> 
@@ -570,6 +569,7 @@ textarea{
             </div>  
         </div>
       </center>
+      <%}%>
       <section id="caty">
         <br>
         <h2 class="heading">Tables</h2>
@@ -577,7 +577,7 @@ textarea{
         <center>
             <% for (var i =1; i <=20;  i++ ) { %>
                   <div class="cat one">
-                    <a href="/table/?num=<%=i%>"><img src="https://i.ibb.co/fHLfj8C/Ra-Mawaa-LPU-Final-design-jpg-2.jpg" alt="vecteezy-table-vector-logo-icon-object-background-illustration-7225858" border="0" width="25"></a>
+                    <a href="/table/?num=<%=i%>&email=<%=email1%>"><img src="https://i.ibb.co/fHLfj8C/Ra-Mawaa-LPU-Final-design-jpg-2.jpg" alt="vecteezy-table-vector-logo-icon-object-background-illustration-7225858" border="0" width="25"></a>
                     <center>
                         Table <%= i %> 
                     </center>

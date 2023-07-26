@@ -135,10 +135,11 @@
     <% } %>
     <center>
         <h1>Menu table of <%=table%></h1>
+        <% var email1=email %>
         <div class="buttons">
             <button type="button" class="btn btn-danger"><a href="/clear/?table=<%=table%>" style="text-decoration: none; color: #FFF;">Order Cancel</a></button>
-            <button type="button" class="btn btn-primary"><a href="/back" style="text-decoration: none; color: #FFF;">Home</a></button>
-            <% if ( final_price>0) { %>
+            <button type="button" class="btn btn-primary"><a href="/back/?email=<%=email1%>" style="text-decoration: none; color: #FFF;">Home</a></button>
+            <% if ( final_price>0 && email1==="ramawaa01@gmail.com") { %>
             <button type="button" class="btn btn-success"><a href="/his/?table=<%=table%>" style="text-decoration: none; color: #FFF;">Bill</a></button>
             <%}%>
         </div>
@@ -161,22 +162,17 @@
                                 <th>Count</th>
                                 <th style="padding-right:1px ;">Price</th>
                             </tr>
-                        <% for (let i=0;i<arr2.length ; i++ ) { %>
-                            <% if (arr2[i].table === table) { %>
+                        <% for (let i of arr2) { %>
+                            <% if (i.table === table) { %>
                             <% for (let j of menu1 ) { %>
-                                <% if (arr2[i].name === j.name) { %>
+                                <% if (i.name === j.name) { %>
                                        <tr>
-                                        <td style="text-rendering: optimizeLegibility;"><%=arr2[i].name%></td>
-                                        <td><%=arr2[i].count%></td>
-                                        <td >Rs <%=(arr2[i].count*j.price)%> </td>
+                                        <td style="text-rendering: optimizeLegibility;"><%=i.name%></td>
+                                        <td><%=i.count%></td>
+                                        <td >Rs <%=(i.count*j.price)%> </td>
                                         <td>
-                                        <a href="/del/?table=<%=table%>&index=<%=i%>"><button class="btn btn-danger" style="width: 5px; height: 5px;"></button></a>
-                                    </td>
-                                        
-                                        
-
-
-    
+                                        <a href="/del/?count=<%=i.count%>&id=<%=i._id%>"><button class="btn btn-danger" style="width: 5px; height: 5px;"></button></a>
+                                        </td>
                                         </tr>
 
                                     
