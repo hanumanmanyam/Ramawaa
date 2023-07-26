@@ -311,12 +311,10 @@ app.get('/his',function(req,res){
 app.get("/clear", function (req, res) {
   let table1 = req.query.table;
   var index = 0;
-  for (let i of arr) {
-    if (i.table == table1) {
-      arr.splice(index);
-    }
-    index++;
-  }
+  Pending.deleteMany({table: table1}).then(function(item){
+    if(item)console.log(item);
+
+  });
   return res.redirect("back");
 });
 app.post("/add", function (req, res) {
