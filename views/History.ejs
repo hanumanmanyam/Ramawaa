@@ -125,6 +125,7 @@
     <% var final_price= 0; %>
     <% var del=0%>
     <% var dine=0%>
+    <% var orde=[]%>
     <% for (let a of order.reverse()) { %>
         <% var flag=0%> 
     <% for (let i of a.order ) { %>
@@ -169,6 +170,7 @@
                             <td><%=i.count%></td>
                             <td>Rs <%=(i.total)%></td>
                             <% final_price +=(i.total)%>
+                            
 
                         </tr>
                         <% index=i.opt %>
@@ -195,11 +197,9 @@
                 <h2 style="font-family: 'Courier New', monospace;">Total :Rs <%=final_price %></h2>
                 </div>
         </div>
-        <button type="button" class="btn btn-success"><a href="/confirm/?table=<%=table%>" style="text-decoration: none; color: #FFF;">Confirm Order</a></button>
+        <button type="button" class="btn btn-success"><a href="/confirm/?table=<%=table%>&arr=<%=arr1%>" style="text-decoration: none; color: #FFF;">Confirm Order</a></button>
 
-        <button type="button" class="btn btn-primary"><a href="/back" style="text-decoration: none; color: #FFF;">Home</a></button>
-
-
+        <button type="button" class="btn btn-primary"><a href="/back/?email=<%=email%>" style="text-decoration: none; color: #FFF;">Home</a></button>
 
     </center>
     
