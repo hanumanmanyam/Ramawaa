@@ -30,7 +30,21 @@
 
 								<div class="mb-3">
 									<label class="mb-2 text-muted" for="cat">Catogery</label>
-									<input id="email" type="text" class="form-control" name="cat" value="" required>
+									<!-- <input id="email" type="text" class="form-control" name="cat" value="" required> -->
+									<select name="cat" id="email" class="form-control" required>
+										<option value="Biryani">Biryani</option>
+										<option value="Starters">Starters</option>
+										<option value="Mandi">Mandi</option>
+										<option value="Gravies(non-veg)">Gravies(non-veg)</option>
+										<option value="Gravies(veg)">Gravies(veg)</option>
+										<option value="Roti">Roti</option>
+										<option value="Rice">Rice</option>
+										<option value="Mutton">Mutton</option>
+										<option value="Egg">Egg</option>
+										<option value="Sweet">Sweet</option>
+										<option value="Combo">Combo</option>
+										<option value="Extra">Extra</option>
+									</select>
 									
 								</div>
 
@@ -50,7 +64,7 @@
 						</div>
 						<div class="card-footer py-3 border-0">
 							<div class="text-center">
-								Want to go back <a href="/back" class="text-dark">Home</a>
+								Want to go back <a href="/back/?email=<%=email%>" class="text-dark">Home</a>
 							</div>
 						</div>
 					</div>

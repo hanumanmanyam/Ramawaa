@@ -149,8 +149,6 @@ app.post("/validate", function (req, res) {
 app.get("/item", function (req, res) {
   res.render("Add", {
     arr1: arr,
-    email : req.query.email
-
   });
 });
 app.get("/table", function (req, res) {
